@@ -299,5 +299,32 @@
       }
     });
   </script>
+
+  <script>
+    // عرض الإعلان بعد كل 5 أسئلة
+    let questionCount = Number(localStorage.getItem('saAI_questions')) || 0;
+
+    function showAd() {
+      const wrap = document.createElement('div');
+      wrap.style.margin = '20px 0';
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = '//pl26561726.profitableratecpm.com/b8/89/68/b88968c03fb5ba3cf5967ce48c255ce4.js';
+      wrap.appendChild(script);
+      document.querySelector('.chat-container').appendChild(wrap);
+      document.querySelector('.chat-container').scrollTop = document.querySelector('.chat-container').scrollHeight;
+    }
+
+    const originalSendMessage = sendMessage;
+    sendMessage = function () {
+      questionCount++;
+      localStorage.setItem('saAI_questions', questionCount);
+      if (questionCount % 5 === 0) {
+        showAd();
+      }
+      originalSendMessage();
+    };
+  </script>
+
 </body>
 </html>
